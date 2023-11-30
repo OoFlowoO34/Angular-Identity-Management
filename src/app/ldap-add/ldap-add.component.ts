@@ -6,7 +6,7 @@ import { LdapDetailsComponent } from '../ldap-details/ldap-details.component';
 import { UsersService } from '../service/users.service';
 
 @Component({
-  selector: 'app-ldap-edit',
+  selector: 'app-ldap-add',
   templateUrl: '../ldap-details/ldap-details.component.html',
   styleUrls: ['../ldap-details/ldap-details.component.css'],
 })
@@ -21,13 +21,12 @@ export class LdapAddComponent extends LdapDetailsComponent implements OnInit {
     super(false, fb, router);
   }
   ngOnInit(): void {
-    super.onInit();
   }
 
   validateForm(): void {
     console.log('LdapAddComponent - validateForm');
     this.processValidateRunning = true;
-    this.usersService.updateUser(this.getUserFormControl()).subscribe({
+    this.usersService.updateUser(this.getUserFromFormControl()).subscribe({
       next: (value): void => {
         this.processValidateRunning = false;
         this.errorMessage = '';
@@ -43,10 +42,29 @@ export class LdapAddComponent extends LdapDetailsComponent implements OnInit {
     });
   }
 
-  isFormValid(): boolean {
-    return (
-      this.userForm.valid &&
-      (!this.addForm || this.formGetValue('passwordGroup.password') !== '')
-    );
-  }
+  // // (override is not needed)
+  // override getUserFormControl(): import('../models/user-ldap').UserLdap {
+  //   // Implement logic to retrieve user form control values
+  //   return {
+  //     login: this.formGetValue('login'),
+  //     nom: this.formGetValue('nom'),
+  //     prenom: this.formGetValue('prenom'),
+  //     nomComplet: this.formGetValue('nom') + ' ' + this.formGetValue('prenom'),
+  //     mail: this.formGetValue('mail'),
+  //     employeNumero: 1,
+  //     employeNiveau: 1,
+  //     dateEmbauche: '2020-04-24',
+  //     publisherId: 1,
+  //     active: true,
+  //     motDePasse: '',
+  //     role: 'ROLE_USER',
+  //   };
+  // }
+
+  // isFormValid(): boolean {
+  //   return (
+  //     this.userForm.valid &&
+  //     (!this.addForm || this.formGetValue('passwordGroup.password') !== '')
+  //   );
+  // }
 }

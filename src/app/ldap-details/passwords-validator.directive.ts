@@ -8,6 +8,14 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
+export const passwordMatchingValidator = (control: AbstractControl) => {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+  return password && confirmPassword && password.value === confirmPassword.value
+    ? null
+    : { passwordMatching: true };
+};
+
 export class ConfirmValidParentMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
@@ -21,13 +29,4 @@ export class ConfirmValidParentMatcher implements ErrorStateMatcher {
       (control.touched || isSubmitted)
     );
   }
-  passwordMatchingValidator = (control: AbstractControl) => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirm Password');
-    return password &&
-      confirmPassword &&
-      password.value === confirmPassword.value
-      ? null
-      : { passwordMatching: true };
-  };
 }

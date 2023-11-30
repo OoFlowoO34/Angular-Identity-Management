@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LdapDetailsComponent } from '../ldap-details/ldap-details.component';
 import { UsersService } from '../service/users.service';
+import { UserLdap } from '../models/user-ldap';
 
 @Component({
   selector: 'app-ldap-edit',
@@ -22,26 +23,28 @@ export class LdapEditComponent extends LdapDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    super.ngOnInit();
     this.getUser();
   }
+
+  // OK
 
   validateForm(): void {
     console.log('LdapEditComponent - validateForm');
     this.processValidateRunning = true;
     this.usersService.updateUser(this.getUserFromFormControl()).subscribe({
-      next: (value): void => {
-        this.processValidateRunning = false;
-        this.errorMessage = '';
-        this.snackBar.open('Utilisateur modifié !', 'X');
+      next: (value: UserLdap | Error): void => {
+        if (value instanceof Error) {
+          // Handle error
+          console.error(value.message);
+          this.snackBar.open('Utilisateur non modifié !', 'X');
+        } else {
+          // Handle success
+          this.processValidateRunning = false;
+          this.errorMessage = '';
+          this.snackBar.open('Utilisateur modifié !', 'X');
+        }
       },
-
-      error: (err): void => {
-        this.processValidateRunning = false;
-        this.errorMessage = 'Une erreur est survenue dans la modification !';
-        console.error('Modification utilisateur', err);
-        this.snackBar.open('Utilisateur non modifié !', 'X');
-      },
+      // Other subscription callbacks...
     });
   }
 
@@ -51,6 +54,7 @@ export class LdapEditComponent extends LdapDetailsComponent implements OnInit {
       console.error("Can't retrieve user id from URL");
       return;
     }
+    console.log('login =', login);
     this.usersService.getUser(login).subscribe({
       next: (user): void => {
         this.user = user;

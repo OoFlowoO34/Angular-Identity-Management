@@ -9,12 +9,7 @@ import {
   passwordMatchingValidator,
 } from './passwords-validator.directive';
 
-@Component({
-  selector: 'app-ldap-details',
-  templateUrl: './ldap-details.component.html',
-  styleUrls: ['./ldap-details.component.css'],
-})
-export abstract class LdapDetailsComponent implements OnInit {
+export abstract class LdapDetailsComponent {
   user: UserLdap | undefined;
   processLoadRunning: boolean = false;
   processValidateRunning: boolean = false;
@@ -42,7 +37,7 @@ export abstract class LdapDetailsComponent implements OnInit {
     return this.userForm.get('passwordGroup');
   }
 
-  constructor(
+  protected constructor(
     public addForm: boolean,
     private fb: FormBuilder,
     private router: Router
@@ -57,10 +52,6 @@ export abstract class LdapDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getUser();
-  }
-
   goToLdap(): void {
     this.router.navigate(['/users/list']).then((e) => {
       if (!e) {
@@ -73,58 +64,6 @@ export abstract class LdapDetailsComponent implements OnInit {
     this.validateForm();
     // A faire plus tard
   }
-
-  getErrorMessage(): string {
-    if (this.passwordForm?.errors) {
-      return 'Les mots de passes ne correspondent pas';
-    }
-    return 'Entrez un mot de passe';
-  }
-
-  // validateForm(): void {
-  //   console.log('LdapEditComponent validateForm');
-  //   this.processValidateRunning = true;
-  //   this.usersService.updateUser(this.getUserFromFormControl()).subscribe( {
-  //     next: (value: UserLdap ) : void => {
-  //       this.processValidateRunning = false;
-  //       this.errorMessage = '';
-  //       this.snackBar.open( message: 'Utilisateur modifié !', action: 'X');
-  //     },
-  //     error: (err): void => {
-  //       this.processValidateRunning = false;
-  //       this.errorMessage = 'Une erreur est survenue dans la modification !'; console.error('Modification utilisateur', err);
-  //       this.snackBar.open( message: 'Utilisateur non modifié !', action: 'X');
-  //     }
-  //   });
-
-  // }
-
-  updateLogin(): void {
-    const control = this.userForm.get('login');
-    if (control === null) {
-      console.error("L'objet 'login' du formlaire n'existe pas");
-      return;
-    }
-
-    control.setValue(
-      (
-        this.formGetValue('prenom') +
-        '.' +
-        this.formGetValue('nom')
-      ).toLowerCase()
-    );
-    this.updateMail();
-  }
-
-  updateMail(): void {
-    const control = this.userForm.get('mail');
-    if (control === null) {
-      console.error("L'objet 'mail' du formlaire n'existe pas");
-      return;
-    }
-    control.setValue(this.formGetValue('login').toLowerCase() + '@epsi.lan');
-  }
-
   isFormValid(): boolean {
     return (
       this.userForm.valid &&
@@ -180,5 +119,74 @@ export abstract class LdapDetailsComponent implements OnInit {
       motDePasse: '',
       role: 'ROLE_USER',
     };
+  }
+
+  getErrorMessage(): string {
+    if (this.passwordForm?.errors) {
+      return 'Les mots de passes ne correspondent pas';
+    }
+    return 'Entrez un mot de passe';
+  }
+
+  // validateForm(): void {
+  //   console.log('LdapEditComponent validateForm');
+  //   this.processValidateRunning = true;
+  //   this.usersService.updateUser(this.getUserFromFormControl()).subscribe( {
+  //     next: (value: UserLdap ) : void => {
+  //       this.processValidateRunning = false;
+  //       this.errorMessage = '';
+  //       this.snackBar.open( message: 'Utilisateur modifié !', action: 'X');
+  //     },
+  //     error: (err): void => {
+  //       this.processValidateRunning = false;
+  //       this.errorMessage = 'Une erreur est survenue dans la modification !'; console.error('Modification utilisateur', err);
+  //       this.snackBar.open( message: 'Utilisateur non modifié !', action: 'X');
+  //     }
+  //   });
+
+  // }
+
+  // getUserFormControl(): import('../models/user-ldap').UserLdap {
+  //   // Implement logic to retrieve user form control values
+  //   return {
+  //     login: this.formGetValue('login'),
+  //     nom: this.formGetValue('nom'),
+  //     prenom: this.formGetValue('prenom'),
+  //     nomComplet: this.formGetValue('nom') + ' ' + this.formGetValue('prenom'),
+  //     mail: this.formGetValue('mail'),
+  //     employeNumero: 1, // Example value, replace with the actual logic
+  //     employeNiveau: 1, // Example value, replace with the actual logic
+  //     dateEmbauche: '2020-04-24', // Example value, replace with the actual logic
+  //     publisherId: 1, // Example value, replace with the actual logic
+  //     active: true, // Example value, replace with the actual logic
+  //     motDePasse: '', // Example value, replace with the actual logic
+  //     role: 'ROLE_USER', // Example value, replace with the actual logic
+  //   };
+  // }
+
+  updateLogin(): void {
+    const control = this.userForm.get('login');
+    if (control === null) {
+      console.error("L'objet 'login' du formlaire n'existe pas");
+      return;
+    }
+
+    control.setValue(
+      (
+        this.formGetValue('prenom') +
+        '.' +
+        this.formGetValue('nom')
+      ).toLowerCase()
+    );
+    this.updateMail();
+  }
+
+  updateMail(): void {
+    const control = this.userForm.get('mail');
+    if (control === null) {
+      console.error("L'objet 'mail' du formlaire n'existe pas");
+      return;
+    }
+    control.setValue(this.formGetValue('login').toLowerCase() + '@epsi.lan');
   }
 }

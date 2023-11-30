@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LdapEditComponent } from './ldap-edit/ldap-edit.component';
 import { LdapAddComponent } from './ldap-add/ldap-add.component';
 import { AlertComponent } from './share/alert/alert.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AlertComponent } from './share/alert/alert.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
