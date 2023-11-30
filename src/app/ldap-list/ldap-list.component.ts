@@ -59,4 +59,12 @@ export class LdapListComponent implements OnInit {
       }
     });
   }
+
+  addUser() {
+    this.router.navigate(['/users/add']).then((e) => {
+      if (!e) {
+        console.log('Navigation has failed');
+      }
+    });
+  }
 }
