@@ -3,8 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LdapDetailsComponent } from '../ldap-details/ldap-details.component';
-import { UsersService } from '../service/users.service';
-import { UserLdap } from '../models/user-ldap';
+import { UsersService } from '../../service/users.service';
+import { UserLdap } from 'src/app/models/user-ldap';
 
 @Component({
   selector: 'app-ldap-edit',

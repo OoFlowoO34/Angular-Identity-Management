@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserLdap } from '../models/user-ldap';
-import { UsersService } from '../service/users.service';
+import { UserLdap } from 'src/app/models/user-ldap';
+import { UsersService } from '../../service/users.service';
 
 @Component({
   selector: 'app-ldap-list',
