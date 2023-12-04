@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LdapDetailsComponent } from '../ldap-details/ldap-details.component';
-import { UsersService } from '../service/users.service';
+import { UsersService } from '../../service/users.service';
 
 @Component({
   selector: 'app-ldap-add',
@@ -20,8 +20,7 @@ export class LdapAddComponent extends LdapDetailsComponent implements OnInit {
   ) {
     super(false, fb, router);
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   validateForm(): void {
     console.log('LdapAddComponent - validateForm');
