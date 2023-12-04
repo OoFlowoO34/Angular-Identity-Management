@@ -132,10 +132,6 @@ export abstract class LdapDetailsComponent {
       return;
     }
 
-    const exConstWithLowerCamelCase = "test"
-
-let  toto =     exConstWithLowerCamelCase;
-
     control.setValue(
       (
         this.formGetValue('prenom') +
