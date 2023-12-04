@@ -26,25 +26,20 @@ export class LdapEditComponent extends LdapDetailsComponent implements OnInit {
     this.getUser();
   }
 
-  // OK
-
   validateForm(): void {
     console.log('LdapEditComponent - validateForm');
     this.processValidateRunning = true;
     this.usersService.updateUser(this.getUserFromFormControl()).subscribe({
       next: (value: UserLdap | Error): void => {
         if (value instanceof Error) {
-          // Handle error
           console.error(value.message);
           this.snackBar.open('Utilisateur non modifié !', 'X');
         } else {
-          // Handle success
           this.processValidateRunning = false;
           this.errorMessage = '';
           this.snackBar.open('Utilisateur modifié !', 'X');
         }
       },
-      // Other subscription callbacks...
     });
   }
 
