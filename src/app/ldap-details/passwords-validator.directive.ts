@@ -2,9 +2,7 @@ import {
   AbstractControl,
   FormControl,
   FormGroupDirective,
-  NgForm,
-  ValidationErrors,
-  ValidatorFn,
+  NgForm
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 

@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { UsersService } from '../service/users.service';
+import { Router } from '@angular/router';
 import { UserLdap } from '../models/user-ldap';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
   ConfirmValidParentMatcher,
   passwordMatchingValidator,
@@ -127,42 +124,6 @@ export abstract class LdapDetailsComponent {
     }
     return 'Entrez un mot de passe';
   }
-
-  // validateForm(): void {
-  //   console.log('LdapEditComponent validateForm');
-  //   this.processValidateRunning = true;
-  //   this.usersService.updateUser(this.getUserFromFormControl()).subscribe( {
-  //     next: (value: UserLdap ) : void => {
-  //       this.processValidateRunning = false;
-  //       this.errorMessage = '';
-  //       this.snackBar.open( message: 'Utilisateur modifié !', action: 'X');
-  //     },
-  //     error: (err): void => {
-  //       this.processValidateRunning = false;
-  //       this.errorMessage = 'Une erreur est survenue dans la modification !'; console.error('Modification utilisateur', err);
-  //       this.snackBar.open( message: 'Utilisateur non modifié !', action: 'X');
-  //     }
-  //   });
-
-  // }
-
-  // getUserFormControl(): import('../models/user-ldap').UserLdap {
-  //   // Implement logic to retrieve user form control values
-  //   return {
-  //     login: this.formGetValue('login'),
-  //     nom: this.formGetValue('nom'),
-  //     prenom: this.formGetValue('prenom'),
-  //     nomComplet: this.formGetValue('nom') + ' ' + this.formGetValue('prenom'),
-  //     mail: this.formGetValue('mail'),
-  //     employeNumero: 1, // Example value, replace with the actual logic
-  //     employeNiveau: 1, // Example value, replace with the actual logic
-  //     dateEmbauche: '2020-04-24', // Example value, replace with the actual logic
-  //     publisherId: 1, // Example value, replace with the actual logic
-  //     active: true, // Example value, replace with the actual logic
-  //     motDePasse: '', // Example value, replace with the actual logic
-  //     role: 'ROLE_USER', // Example value, replace with the actual logic
-  //   };
-  // }
 
   updateLogin(): void {
     const control = this.userForm.get('login');
